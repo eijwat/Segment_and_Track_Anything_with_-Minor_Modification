@@ -1,0 +1,19 @@
+version: "3"
+services:
+  segment-and-track-anything:
+    image: segment-and-track-anything:latest
+    build: .
+    environment:
+      - "DISPLAY=${DISPLAY}"
+      - "NVIDIA_VISIBLE_DEVICES=all"
+      - "NVIDIA_DRIVER_CAPABILITIES=all"
+    volumes:
+      - ./:/workspace
+      - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
+    tty: true
+    privileged: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - capabilities: [gpu]
